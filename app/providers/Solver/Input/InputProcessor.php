@@ -2,14 +2,39 @@
 
 class InputProcessor{
 	
+	/**
+	 * extracted single commands
+	 * 
+	 * @var array
+	 */
 	private $inputLines;
 	
+	/**
+	 * number of test-cases
+	 * 
+	 * @var int
+	 */
 	private $testCases;
 	
+	/**
+	 * N value for each operation
+	 * 
+	 * @var array
+	 */
 	private $matrixDimensions;
 	
+	/**
+	 * Number of operations
+	 * 
+	 * @var int 
+	 */
 	private $operationsNumber;
 	
+	/** 
+	 * Operations to execute (UPDATE or QUERY type)
+	 *
+	 * @var array
+	 */
 	private $operations;
 	
 	public function __construct($input){
@@ -17,6 +42,30 @@ class InputProcessor{
 		$this->operationsNumber = array();
 		$this->operations = array();
 		$this->inputLines = $this->processInput($input);
+	}
+	
+	/**
+	 * 
+	 * @return array
+	 */
+	public function getMatrixDimensions(){
+		return $this->matrixDimensions;
+	}
+	
+	/**
+	 * 
+	 * @return int
+	 */
+	public function getOperationsNumber(){
+		return $this->operationsNumber;
+	}
+	
+	/**
+	 * 
+	 * @return array
+	 */
+	public function getOperations(){
+		return $this->operations;
 	}
 	
 	/*
@@ -99,7 +148,7 @@ class InputProcessor{
 			if($operation['y']<1 || $operation['y']>$this->matrixDimensions[$current_operation]){ return false; }
 			if($operation['z']<1 || $operation['z']>$this->matrixDimensions[$current_operation]){ return false; }
 			if($operation['W']<-1000000000 || $operation['W']>1000000000){ return false; }
-			$this->operations[] = $operation;
+			$this->operations[$current_operation][] = $operation;
 		}elseif($array[0]=='QUERY') {
 			// validate 1 <= x1 <= x2 <= N; 1 <= y1 <= y2 <= N and 1 <= z1 <= z2 <= N 
 			if(count($array)!=7){ return false; }
@@ -127,7 +176,7 @@ class InputProcessor{
 					$operation['z2']>$this->matrixDimensions[$current_operation]){
 				return false;
 			}
-			$this->operations[] = $operation;
+			$this->operations[$current_operation][] = $operation;
 		}else{
 			return false;
 		}

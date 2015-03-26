@@ -17,7 +17,12 @@ class Solver{
 		if(!$this->inputProcessor->parseInput()){
 			return false;
 		}
-		// TODO resturn response, not a boolean
+		$response = $this->executeOperations();
+		return $response;
+	}
+	
+	private function executeOperations(){
+		$operations = $this->inputProcessor->getOperations();
 		return true;
 	}
 	
