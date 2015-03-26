@@ -1,0 +1,32 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 25/03/2015, 07:51:00 PM
+    Author     : Leonardo
+*/
+
+/* Overryde som foundation classes */
+.row {
+  max-width: 80em;
+}
+
+/* MAIN CONTENT */
+.main-content {
+  padding: 1.6rem 2rem;
+}
+
+/* FOOTER */
+#footer {
+  border-top: 1px solid #DCDCDC;
+  padding-bottom: 80px;
+}
+
+#footer .copyright {
+  font-size: 9pt;
+  text-align: center;
+  color: #999;
+  padding-top: 2rem;
+}
