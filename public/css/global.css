@@ -35,7 +35,22 @@ and open the template in the editor.
 textarea.main-textarea{
 	height: 150px;
 }
+.input-container{
+	padding: 1rem;
+	margin: 1rem 0;
+	background: #EFEFEF;
+	border: 1px solid #999;
+	display: none;
+}
 .input-container .error{
 	text-decoration: line-through;
 	color: #700;
+}
+
+.output-container{
+	padding: 1rem;
+	margin: 1rem 0;
+	background: #EFEFEF;
+	border: 1px solid #999;
+	font-weight: bold;
 }

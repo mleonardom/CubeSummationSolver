@@ -2,13 +2,18 @@
 
 @section('content')
 
-	<div class="input-container" id="input-container"></div>
+	<div class="input-container" id="input-container">
+		<strong>Entrada</strong><br />
+	</div>
 		{{ Form::open(array('url' => '#', 'id'=>'main-form')) }}
 			{{ Form::label('input', 'Input:') }}
 			{{ Form::text('input', Input::old('input'), array('id' => 'input-field')) }}
 			{{ Form::submit('Enviar', array('class'=>'button small') ) }}
 		{{ Form::close() }}
-	<div class="output-container" id="output-container"></div>
+		<div class="output-container">
+			<strong>Salida:</strong>
+			<div id="output-container"></div>
+		</div>
 @stop
 
 @section('jquery_on_ready')
@@ -48,6 +53,7 @@
 				}else{
 					$command_dom.text('Error en respuesta.');
 				}
+				$('#input-container').show();
 				$('#input-container').append($command_dom);
 			},
 			complete: function(){
