@@ -34,7 +34,9 @@ class SolverController extends BaseController {
 		$data = array(
 			'input' => Input::get('input')
 		);
-		if($solver->solve()!==false){
+		$response = $solver->solve();
+		if($response!==false){
+			$data['output'] = $response;
 			return parent::jsonResponse($data);
 		}else{
 			return parent::jsonError('Parámetro inválido', 200, $data);

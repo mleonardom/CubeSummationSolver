@@ -13,6 +13,12 @@
 
 @section('jquery_on_ready')
 	var commands = '';
+	
+	var outputParse = function(output){
+		output_html = output.replace(/;/g, "<br />");
+		$('#output-container').html('<div>'+output_html+'</div>');
+	}
+	
 	$('#main-form').submit(function(event){
 		event.preventDefault();
 		var input = commands.length==0? $('#input-field').val() : commands+';'+$('#input-field').val();
@@ -31,6 +37,9 @@
 					if(res.ok){
 						commands = input;
 						$command_dom.addClass('success');
+						if(res.data.output){
+							outputParse(res.data.output);
+						}
 					}else{
 						$command_dom.addClass('error');
 						res.error_message = res.error_message || 'Error.';

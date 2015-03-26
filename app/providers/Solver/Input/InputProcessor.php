@@ -56,6 +56,14 @@ class InputProcessor{
 	 * 
 	 * @return int
 	 */
+	public function getMatrixDimension($index){
+		return $this->matrixDimensions[$index];
+	}
+	
+	/**
+	 * 
+	 * @return int
+	 */
 	public function getOperationsNumber(){
 		return $this->operationsNumber;
 	}

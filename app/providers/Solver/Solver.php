@@ -22,8 +22,25 @@ class Solver{
 	}
 	
 	private function executeOperations(){
+		$response = '';
 		$operations = $this->inputProcessor->getOperations();
-		return true;
+		foreach($operations as $index => $operations_group){
+			$response .= $this->executeOperationsGroup($operations_group, $index);
+		}
+		return $response;
+	}
+	
+	private function executeOperationsGroup($operations_group, $index){
+		$response = '';
+		$matrixDimension = $this->inputProcessor->getMatrixDimension($index);
+		$matrix = new Matrix\Matrix($matrixDimension);
+		foreach($operations_group as $operation){
+			$prev_response = $matrix->executeOperation($operation);
+			if($prev_response!==''){
+				$response .= $prev_response.';';
+			}
+		}
+		return $response;
 	}
 	
 }
