@@ -143,52 +143,76 @@ class InputProcessor{
 	 */
 	private function parseOperation($array, $current_operation){
 		if($array[0]=='UPDATE') {
-			// Validate 1 <= x,y,z <= N and -109 <= W <= 109
-			if(count($array)!=5){ return false; }
-			$operation = array(
-				'action' => 'UPDATE',
-				'x' => $array[1]+0,
-				'y' => $array[2]+0,
-				'z' => $array[3]+0,
-				'W' => $array[4]+0,
-			);
-			if($operation['x']<1 || $operation['x']>$this->matrixDimensions[$current_operation]){ return false; }
-			if($operation['y']<1 || $operation['y']>$this->matrixDimensions[$current_operation]){ return false; }
-			if($operation['z']<1 || $operation['z']>$this->matrixDimensions[$current_operation]){ return false; }
-			if($operation['W']<-1000000000 || $operation['W']>1000000000){ return false; }
+			$operation = $this->parseUpdateOperation($array, $current_operation);
+			if($operation === false) return false;
 			$this->operations[$current_operation][] = $operation;
 		}elseif($array[0]=='QUERY') {
-			// validate 1 <= x1 <= x2 <= N; 1 <= y1 <= y2 <= N and 1 <= z1 <= z2 <= N 
-			if(count($array)!=7){ return false; }
-			$operation = array(
-				'action' => 'QUERY',
-				'x1' => $array[1]+0,
-				'y1' => $array[2]+0,
-				'z1' => $array[3]+0,
-				'x2' => $array[4]+0,
-				'y2' => $array[5]+0,
-				'z2' => $array[6]+0,
-			);
-			if($operation['x1']<1 ||
-					$operation['x1']>$operation['x2'] ||
-					$operation['x2']>$this->matrixDimensions[$current_operation]){
-				return false;
-			}
-			if($operation['y1']<1 ||
-					$operation['y1']>$operation['y2'] ||
-					$operation['y2']>$this->matrixDimensions[$current_operation]){
-				return false;
-			}
-			if($operation['z1']<1 ||
-					$operation['z1']>$operation['z2'] ||
-					$operation['z2']>$this->matrixDimensions[$current_operation]){
-				return false;
-			}
+			$operation = $this->parseQueryOperation($array, $current_operation);
+			if($operation === false) return false;
 			$this->operations[$current_operation][] = $operation;
 		}else{
 			return false;
 		}
 		return true;
+	}
+	
+	/**
+	 * Parse an Update Operation
+	 * 
+	 * @param type $array
+	 * @return boolean|string
+	 */
+	private function parseUpdateOperation($array, $current_operation){
+		// Validate 1 <= x,y,z <= N and -109 <= W <= 109
+		if(count($array)!=5){ return false; }
+		$operation = array(
+			'action' => 'UPDATE',
+			'x' => $array[1]+0,
+			'y' => $array[2]+0,
+			'z' => $array[3]+0,
+			'W' => $array[4]+0,
+		);
+		if($operation['x']<1 || $operation['x']>$this->matrixDimensions[$current_operation]){ return false; }
+		if($operation['y']<1 || $operation['y']>$this->matrixDimensions[$current_operation]){ return false; }
+		if($operation['z']<1 || $operation['z']>$this->matrixDimensions[$current_operation]){ return false; }
+		if($operation['W']<-1000000000 || $operation['W']>1000000000){ return false; }
+		return $operation;
+	}
+	
+	/**
+	 * Parse an Query Operation
+	 * 
+	 * @param type $array
+	 * @return boolean|string
+	 */
+	private function parseQueryOperation($array, $current_operation){
+		// validate 1 <= x1 <= x2 <= N; 1 <= y1 <= y2 <= N and 1 <= z1 <= z2 <= N 
+		if(count($array)!=7){ return false; }
+		$operation = array(
+			'action' => 'QUERY',
+			'x1' => $array[1]+0,
+			'y1' => $array[2]+0,
+			'z1' => $array[3]+0,
+			'x2' => $array[4]+0,
+			'y2' => $array[5]+0,
+			'z2' => $array[6]+0,
+		);
+		if($operation['x1']<1 ||
+				$operation['x1']>$operation['x2'] ||
+				$operation['x2']>$this->matrixDimensions[$current_operation]){
+			return false;
+		}
+		if($operation['y1']<1 ||
+				$operation['y1']>$operation['y2'] ||
+				$operation['y2']>$this->matrixDimensions[$current_operation]){
+			return false;
+		}
+		if($operation['z1']<1 ||
+				$operation['z1']>$operation['z2'] ||
+				$operation['z2']>$this->matrixDimensions[$current_operation]){
+			return false;
+		}
+		return $operation;
 	}
 	
 	/*
