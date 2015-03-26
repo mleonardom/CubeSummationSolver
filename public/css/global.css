@@ -30,3 +30,12 @@ and open the template in the editor.
   color: #999;
   padding-top: 2rem;
 }
+
+/* FORM */
+textarea.main-textarea{
+	height: 150px;
+}
+.input-container .error{
+	text-decoration: line-through;
+	color: #700;
+}

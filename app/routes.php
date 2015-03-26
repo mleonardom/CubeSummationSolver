@@ -12,3 +12,4 @@
 */
 
 Route::get('/', array('uses' => 'SolverController@show'));
+Route::post('/solve', array('uses' => 'SolverController@solve'));

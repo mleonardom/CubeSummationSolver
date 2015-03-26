@@ -19,5 +19,27 @@ class SolverController extends BaseController {
 	{
 		return View::make('solver.main');
 	}
+	
+	/*
+	|
+	| Solve an input
+	|
+	|	Route::get('/solve', 'SolverController@solve');
+	|
+	*/
+	
+	public function solve(){
+		
+		$solver = Solver::make(Input::get('input'));
+		$data = array(
+			'input' => Input::get('input')
+		);
+		if($solver->solve()!==false){
+			return parent::jsonResponse($data);
+		}else{
+			return parent::jsonError('Parámetro inválido', 200, $data);
+		}
+		
+	}
 
 }
